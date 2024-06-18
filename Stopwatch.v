@@ -237,40 +237,6 @@ always @(posedge iCLK) begin
         count_clk <= (Div < 2500000) ? 0 : 1;
     end
 end
-/*
-// 00~59.9 Seconds and 00~59 Minutes
-always @(posedge count_clk or negedge reset) begin
-    if (!reset) begin
-        BCD <= 20'h00000; // Reset the entire BCD register
-    end else if (count_enable) begin
-        // 00~59.9 Seconds
-        if (BCD[3:0] == 4'h9) begin
-            BCD[3:0] <= 4'h0;
-            if (BCD[7:4] == 4'h9) begin
-                BCD[7:4] <= 4'h0;
-                if (BCD[11:8] == 4'h5)
-                    BCD[11:8] <= 4'h0;
-                else
-                    BCD[11:8] <= BCD[11:8] + 1'b1;
-            end else
-                BCD[7:4] <= BCD[7:4] + 1'b1;
-        end else
-            BCD[3:0] <= BCD[3:0] + 1'b1;
-
-        // 00~59 Minutes
-        if (BCD[11:0] == 12'h599) begin //if (count_enable && BCD[11:0] == 12'h599)
-            if (BCD[15:12] == 4'h9) begin
-                BCD[15:12] <= 4'h0;
-                if (BCD[19:16] == 4'h5)
-                    BCD[19:16] <= 4'h0;
-                else
-                    BCD[19:16] <= BCD[19:16] + 1'b1;
-            end else
-                BCD[15:12] <= BCD[15:12] + 1'b1;
-        end
-    end
-end
-*/
 
 always @(posedge iCLK or negedge reset) begin // count_clk
     if (!reset) begin
@@ -309,7 +275,7 @@ always @(posedge iCLK or negedge reset) begin // count_clk
         end else begin
             // Count Down from 10 minutes to 0
             if (BCD == 20'h00000) begin
-                BCD <= BCD; // Stop countdown when reaching 0
+                BCD <= 20'h00000; // Stop countdown when reaching 0
             end else if (BCD[3:0] == 4'h0) begin
                 BCD[3:0] <= 4'h9;
                 if (BCD[7:4] == 4'h0) begin
@@ -516,9 +482,6 @@ always @(posedge iCLK) begin
     end
 end
 
-//assign Trigger = oRESET & iRST_N & Btn_split_stable;
-//assign ress = Btn_split_stable & Btn_start_stop_stable & reset;
-//assign Trigger = oRESET & !Btn_split_stable & !Btn_start_stop_stable;
 assign Trigger = oRESET & !Btn_split_stable & !Btn_start_stop_stable;
 
 endmodule

@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 7",
+		"os_version" : "6.2"
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "not_applicable",
+		"error_message" : "glyph_itr == end_glyph_itr",
+		"source_file" : "/quartus/edt/wedtq/wedtq_count_value_dlg.cpp",
+		"line" : "82",
+		"stack_trace" : "\t0x7ffd1fa78822: edt_wedtq + 0x8822\n\t0x7ffd1fa76f77: edt_wedtq + 0x6f77\n\t0x7ffd1fac439a: edt_wedtq + 0x5439a (edt_wedtq_create_frame_wnd + 0x1e3da)\n\t 0x7018c160: QtCore4 + 0x14c160 (?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z + 0x520)\n\t 0x703ac13f: QtGui4 + 0xc13f (?activate@QAction@@QEAAXW4ActionEvent@1@@Z + 0xdf)\n\t 0x70761c45: QtGui4 + 0x3c1c45 (?click@QAbstractButton@@QEAAXXZ + 0x135)\n\t 0x70762e29: QtGui4 + 0x3c2e29 (?mouseReleaseEvent@QAbstractButton@@MEAAXPEAVQMouseEvent@@@Z + 0x59)\n\t 0x7082188e: QtGui4 + 0x48188e (?mouseReleaseEvent@QToolButton@@MEAAXPEAVQMouseEvent@@@Z + 0xe)\n\t 0x70415174: QtGui4 + 0x75174 (?event@QWidget@@MEAA_NPEAVQEvent@@@Z + 0xd4)\n\t 0x703cc765: QtGui4 + 0x2c765 (?notify_helper@QApplicationPrivate@@QEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0xf5)\n\t 0x703cb35e: QtGui4 + 0x2b35e (?notify@QApplication@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x71e)\n\t 0x7017aaab: QtCore4 + 0x13aaab (?notifyInternal@QCoreApplication@@AEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x7b)\n\t 0x703cfa3e: QtGui4 + 0x2fa3e (?sendMouseEvent@QApplicationPrivate@@SA_NPEAVQWidget@@PEAVQMouseEvent@@00PEAPEAV2@AEAV?$QPointer@VQWidget@@@@_N@Z + 0x1de)\n\t 0x70444530: QtGui4 + 0xa4530 (?trUtf8@QScrollBar@@SA?AVQString@@PEBD0H@Z + 0x1450)\n\t 0x70447f61: QtGui4 + 0xa7f61 (?winMouseButtonUp@QApplication@@SAXXZ + 0x2771)\n\t0x7ffd3a6a681c: USER32 + 0x1681c (CallWindowProcW + 0x3bc)\n\t0x7ffd3a6a6211: USER32 + 0x16211 (DispatchMessageW + 0x1f1)\n\t 0x701a8f42: QtCore4 + 0x168f42 (?processEvents@QEventDispatcherWin32@@UEAA_NV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z + 0x3e2)\n\t 0x7043f864: QtGui4 + 0x9f864 (?openPopup@QApplicationPrivate@@QEAAXPEAVQWidget@@@Z + 0x204)\n\t 0x70176a7b: QtCore4 + 0x136a7b (?exec@QEventLoop@@QEAAHV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z + 0x22b)\n\t 0x70179cbf: QtCore4 + 0x139cbf (?exec@QCoreApplication@@SAHXZ + 0xdf)\n\t0x7ff71e63197b: quartus + 0x197b\n\t0x7ffd28c3cad8: CCL_MSG + 0xcad8 (?msg_initialize_out_of_memory_handler@@YAXXZ + 0x378)\n\t0x7ffd28c3e20c: CCL_MSG + 0xe20c (?msg_set_stack_size@@YAXH@Z + 0x7c)\n\t0x7ffd28d45aa0: ccl_mem + 0x5aa0 (?mem_gen_get_project_output_directory@@YAPEBDXZ + 0x64)\n\t0x7ffd28c3c721: CCL_MSG + 0xc721 (?msg_exe_main@@YAHHPEAPEBDP6AHH0@Z@Z + 0xa1)\n\t0x7ff71e632507: quartus + 0x2507\n\t0x7ff71e631e74: quartus + 0x1e74\n\t0x7ffd3b307bd3: KERNEL32 + 0x17bd3 (BaseThreadInitThunk + 0x13)\n\t0x7ffd3b68ce70: ntdll + 0x6ce70 (RtlUserThreadStart + 0x20)\n",
+		"subsystem" : "WEDTQ"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "14.1.0",
+		"build" : "186",
+		"edition" : "Web Edition"
+	}
+}

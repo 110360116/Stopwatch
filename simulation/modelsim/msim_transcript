@@ -1,0 +1,35 @@
+# Reading C:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+# do Stopwatch_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim PE vmap 10.3c Lib Mapping Utility 2014.09 Sep 20 2014
+# vmap -modelsim_quiet work rtl_work 
+# Copying C:/altera/14.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:/altera/14.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -vlog01compat -work work +incdir+D:/0604/Stopwatch {D:/0604/Stopwatch/Stopwatch.v}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 10:14:12 on Jun 05,2024
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/0604/Stopwatch" D:/0604/Stopwatch/Stopwatch.v 
+# -- Compiling module Stopwatch
+# 
+# Top level modules:
+# 	Stopwatch
+# End time: 10:14:12 on Jun 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/0604/Stopwatch {D:/0604/Stopwatch/LCD_Controller.v}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 10:14:12 on Jun 05,2024
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/0604/Stopwatch" D:/0604/Stopwatch/LCD_Controller.v 
+# -- Compiling module LCD_Controller
+# 
+# Top level modules:
+# 	LCD_Controller
+# End time: 10:14:12 on Jun 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 

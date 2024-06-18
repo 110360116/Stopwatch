@@ -1,0 +1,87 @@
+# do Stopwatch.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# 
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 10:39:26 on Jun 05,2024
+# vlog -work work Stopwatch.vo 
+# -- Compiling module Stopwatch
+# 
+# Top level modules:
+# 	Stopwatch
+# End time: 10:39:26 on Jun 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 10:39:26 on Jun 05,2024
+# vlog -work work Waveform.vwf.vt 
+# -- Compiling module Stopwatch_vlg_sample_tst
+# -- Compiling module Stopwatch_vlg_check_tst
+# -- Compiling module Stopwatch_vlg_vec_tst
+# 
+# Top level modules:
+# 	Stopwatch_vlg_vec_tst
+# End time: 10:39:26 on Jun 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -c -do "Stopwatch.do" 
+# Start time: 10:39:26 on Jun 05,2024
+# Loading work.Stopwatch_vlg_vec_tst
+# Loading work.Stopwatch
+# Loading cycloneive_ver.cycloneive_io_obuf
+# Loading cycloneive_ver.cycloneive_io_ibuf
+# Loading cycloneive_ver.cycloneive_clkctrl
+# Loading cycloneive_ver.cycloneive_mux41
+# Loading cycloneive_ver.cycloneive_ena_reg
+# Loading cycloneive_ver.cycloneive_lcell_comb
+# Loading altera_ver.dffeas
+# Loading work.Stopwatch_vlg_sample_tst
+# Loading work.Stopwatch_vlg_check_tst
+# SDF 10.3c Compiler 2014.09 Sep 20 2014
+# 
+# Loading instances from Stopwatch_v.sdo
+# Loading altera_ver.PRIM_GDFF_LOW
+# Loading timing data from Stopwatch_v.sdo
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Instance: /Stopwatch_vlg_vec_tst File: Waveform.vwf.vt
+# ERROR! Vector Mismatch for output port LCD_DATA[3] :: @time = 1000000.000 ps
+#      Expected value = 00000000
+#      Real value = 00111000
+# ERROR! Vector Mismatch for output port LCD_DATA[4] :: @time = 1000000.000 ps
+#      Expected value = 00000000
+#      Real value = 00111000
+# ERROR! Vector Mismatch for output port LCD_DATA[5] :: @time = 1000000.000 ps
+#      Expected value = 00000000
+#      Real value = 00111000
+# ERROR! Vector Mismatch for output port segA[6] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1000000
+# ERROR! Vector Mismatch for output port segB[6] :: @time = 1000000.000 ps
+#      Expected value = 00000000
+#      Real value = 01000000
+# ERROR! Vector Mismatch for output port segC[6] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1000000
+# ERROR! Vector Mismatch for output port segD[6] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1000000
+# ERROR! Vector Mismatch for output port segE[0] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1111001
+# ERROR! Vector Mismatch for output port segE[3] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1111001
+# ERROR! Vector Mismatch for output port segE[4] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1111001
+# ERROR! Vector Mismatch for output port segE[5] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1111001
+# ERROR! Vector Mismatch for output port segE[6] :: @time = 1000000.000 ps
+#      Expected value = 0000000
+#      Real value = 1111001
+# ERROR! Vector Mismatch for output port LCD_EN :: @time = 1240000.000 ps
+#      Expected value = 0
+#      Real value = 1
+#          13 mismatched vectors : Simulation failed !
+# ** Note: $finish    : Waveform.vwf.vt(1098)
+#    Time: 5 us  Iteration: 0  Instance: /Stopwatch_vlg_vec_tst/tb_out
+# End time: 10:39:26 on Jun 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

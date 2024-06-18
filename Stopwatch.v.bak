@@ -1,0 +1,182 @@
+module Stopwatch (
+    input clk,
+    input reset,
+    input Btn_start_stop,
+    input Btn_split,
+    output reg [4:0] enable,
+    output reg [6:0] seg,
+    output [7:0] lcd_data,
+    output lcd_rs,
+    output lcd_rw,
+    output lcd_en
+);
+
+reg [19:0] BCD;
+reg [2:0] record_index;
+reg [19:0] time_records [4:0];  // Array to store 5 time records
+reg lcd_update;
+
+reg Disp;
+reg [11:0] Div1;
+reg count_clk;
+integer Div2;
+reg count_enable = 0;
+reg preBtn_start_stop_stable, preBtn_split_stable;
+reg display_all_splits = 0;
+
+// Debounce registers
+reg [15:0] debounce_counter_start_stop;
+reg [15:0] debounce_counter_split;
+reg Btn_start_stop_stable, Btn_split_stable;
+
+// Scanning frequency generator
+always @(posedge clk or negedge reset)
+    if (!reset)
+        Div1 <= 12'h000;
+    else
+        Div1 <= Div1 + 1;
+
+assign scan_clk = Div1[11];
+
+// 10Hz Frequency for tenths of a second
+always @(posedge clk or negedge reset)
+    if (!reset)
+        Div2 <= 0;
+    else begin
+        if (Div2 == 4999999)
+            Div2 <= 0;
+        else
+            Div2 <= Div2 + 1;
+        count_clk <= (Div2 < 2500000) ? 0 : 1;
+    end
+
+// Debounce logic for Btn_start_stop
+always @(posedge clk or negedge reset)
+    if (!reset) begin
+        debounce_counter_start_stop <= 0;
+        Btn_start_stop_stable <= 0;
+    end else if (!Btn_start_stop) begin
+        if (debounce_counter_start_stop < 500000) // 10 milliseconds
+            debounce_counter_start_stop <= debounce_counter_start_stop + 1;
+        if (debounce_counter_start_stop == 500000)
+            Btn_start_stop_stable <= Btn_start_stop;
+    end else begin
+        debounce_counter_start_stop <= 0;
+    end
+
+// Debounce logic for Btn_split
+always @(posedge clk or negedge reset)
+    if (!reset) begin
+        debounce_counter_split <= 0;
+        Btn_split_stable <= 0;
+    end else if (!Btn_split) begin
+        if (debounce_counter_split < 500000)
+            debounce_counter_split <= debounce_counter_split + 1;
+        if (debounce_counter_split == 500000)
+            Btn_split_stable <= Btn_split;
+    end else begin
+        debounce_counter_split <= 0;
+    end
+
+// Handle start/stop button with debounce
+always @(posedge clk) begin
+    preBtn_start_stop_stable <= Btn_start_stop_stable;
+    if (Btn_start_stop_stable == 1 && preBtn_start_stop_stable == 0) begin
+        count_enable <= ~count_enable;
+        if (!count_enable) begin
+            display_all_splits <= 1;
+            lcd_update <= 1;
+        end else
+            display_all_splits <= 0;
+    end
+end
+
+// 00~59.9 Seconds
+always @(posedge count_clk or negedge reset)
+    if (!reset)
+        BCD[11:0] <= 12'h000;
+    else if (count_enable) begin
+        if (BCD[3:0] == 4'h9) begin
+            BCD[3:0] <= 4'h0;
+            if (BCD[7:4] == 4'h9) begin
+                BCD[7:4] <= 4'h0;
+                if (BCD[11:8] == 4'h5)
+                    BCD[11:8] <= 4'h0;
+                else
+                    BCD[11:8] <= BCD[11:8] + 1'b1;
+            end else
+                BCD[7:4] <= BCD[7:4] + 1'b1;
+        end else
+            BCD[3:0] <= BCD[3:0] + 1'b1;
+    end
+
+// 00~59 Minutes
+always @(posedge count_clk or negedge reset)
+    if (!reset)
+        BCD[19:12] <= 8'h00;
+    else if (count_enable && BCD[11:0] == 12'h599) begin
+        if (BCD[15:12] == 4'h9) begin
+            BCD[15:12] <= 4'h0;
+            if (BCD[19:16] == 4'h5)
+                BCD[19:16] <= 4'h0;
+            else
+                BCD[19:16] <= BCD[19:16] + 1'b1;
+        end else
+            BCD[15:12] <= BCD[15:12] + 1'b1;
+    end
+
+// Enable Display Location
+always @(posedge scan_clk or negedge reset)
+    if (!reset)
+        enable <= 5'b11110;
+    else
+        enable <= {enable[3:0], enable[4]};
+
+// Select Display Timer
+always @(enable or BCD)
+    case (enable)
+        5'b11110: Disp = BCD[3:0];
+        5'b11101: Disp = BCD[7:4];
+        5'b11011: Disp = BCD[11:8];
+        5'b10111: Disp = BCD[15:12];
+        5'b01111: Disp = BCD[19:16];
+    endcase
+
+// BCD to seg
+always @(Disp)
+    case (Disp)
+        4'd0: seg = 7'b1000000;
+        4'd1: seg = 7'b1111001;
+        4'd2: seg = 7'b0100100;
+        4'd3: seg = 7'b0110000;
+        4'd4: seg = 7'b0011001;
+        4'd5: seg = 7'b0010010;
+        4'd6: seg = 7'b0000010;
+        4'd7: seg = 7'b1111000;
+        4'd8: seg = 7'b0000000;
+        4'd9: seg = 7'b0011000;
+        default: seg = 7'b1111111;
+    endcase
+
+// Record Time on Split Button Press with debounce
+always @(posedge clk) begin
+    preBtn_split_stable <= Btn_split_stable;
+    if (Btn_split_stable == 1 && preBtn_split_stable == 0) begin
+        time_records[record_index] <= BCD;
+        record_index <= (record_index == 4) ? 0 : record_index + 1;
+        lcd_update <= 1;
+    end
+end
+
+// LCD Display (pseudo-code, replace with actual LCD interfacing code)
+always @(posedge clk or negedge reset)
+    if (!reset) begin
+        // Reset LCD
+        // Initialization code for the LCD
+    end else if (lcd_update) begin
+        // Update LCD with time_records
+        // Loop through time_records and display each one on the LCD
+        lcd_update <= 0;
+    end
+
+endmodule
